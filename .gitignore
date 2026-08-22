@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Data
-src/assets/stations.json
+src/assets/sites.json

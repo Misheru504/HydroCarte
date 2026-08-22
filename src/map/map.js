@@ -1,5 +1,5 @@
 import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.4.1/dist/maplibre-gl.mjs';
-import * as stations from '/src/map/stations.js'
+import * as sites from '/src/map/sites.js'
 
 export const map = new maplibregl.Map({
   container: 'map', // ID conteneur
@@ -91,7 +91,7 @@ map.on('load', async () => {
     map.getCanvas().style.cursor = '';
   });
 
-  await stations.loadStations(map);
+  await sites.loadSites(map);
 });
 
 
