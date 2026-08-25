@@ -10,9 +10,9 @@ export const map = new maplibregl.Map({
 });
 
 map.on('load', async () => {
-  changeLanguage('fr');
+  changeLanguage('fr')
 
-  map.addSource('stations', {
+  map.addSource('sites', {
     type: 'geojson',
     data: [],
     cluster: true,
@@ -20,9 +20,9 @@ map.on('load', async () => {
   });
 
   map.addLayer({
-    id: 'stations-clusters',
+    id: 'sites-clusters',
     type: 'circle',
-    source: 'stations',
+    source: 'sites',
     filter: ["has", "point_count"],
     paint: {
       "circle-radius": [
@@ -39,9 +39,9 @@ map.on('load', async () => {
   });
 
   map.addLayer({
-    id: "stations-cluster-count",
+    id: "sites-cluster-count",
     type: "symbol",
-    source: "stations",
+    source: "sites",
     filter: ["has", "point_count"],
 
     layout: {
@@ -54,9 +54,9 @@ map.on('load', async () => {
   });
 
   map.addLayer({
-    id: "stations-points",
+    id: "sites-points",
     type: "circle",
-    source: "stations",
+    source: "sites",
 
     filter: ["!", ["has", "point_count"]],
 
@@ -67,7 +67,7 @@ map.on('load', async () => {
     }
   });
 
-  map.on('click', 'stations-points', (e) => {
+  map.on('click', 'sites-points', (e) => {
     console.log(e)
     const coordinates = e.features[0].geometry.coordinates.slice();
 
@@ -80,14 +80,17 @@ map.on('load', async () => {
       .setLngLat(coordinates)
       .setHTML(makeDesc(e.features[0].properties))
       .addTo(map);
+
+    document.getElementById("feature-panel").classList.add("show");
+    document.getElementById("feature-title").textContent = e.features[0].properties.libelle_site;
   });
 
-  map.on('mouseenter', 'stations-points', () => {
+  map.on('mouseenter', 'sites-points', () => {
     map.getCanvas().style.cursor = 'pointer';
   });
 
     // Change it back to a pointer when it leaves.
-  map.on('mouseleave', 'stations-points', () => {
+  map.on('mouseleave', 'sites-points', () => {
     map.getCanvas().style.cursor = '';
   });
 
