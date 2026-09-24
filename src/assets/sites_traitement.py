@@ -28,15 +28,15 @@ for feature in content["features"]:
         
     del feature["properties"]["code_projection"]
         
-newList=[]
-for i in range(len(content["features"])):
-    if (content["features"][i]["properties"]["surface_bv"] != None):
-        newList.append(content["features"][i])
+# newList=[]
+# for i in range(len(content["features"])):
+#    if (content["features"][i]["properties"]["surface_bv"] != None):
+#        newList.append(content["features"][i])
 
-content["features"] = newList
+# content["features"] = newList
 
 print(len(content["features"]))
 
-with open("stations.json", "w") as f:
+with open("sites.json", "w") as f:
     json.dump(content, f)
 

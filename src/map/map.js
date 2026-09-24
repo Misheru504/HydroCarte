@@ -67,8 +67,7 @@ map.on('load', async () => {
     }
   });
 
-  map.on('click', 'sites-points', (e) => {
-    console.log(e)
+  map.on('click', 'sites-points', async (e) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
 
     map.flyTo({
@@ -81,8 +80,7 @@ map.on('load', async () => {
       .setHTML(makeDesc(e.features[0].properties))
       .addTo(map);
 
-    document.getElementById("feature-panel").classList.add("show");
-    document.getElementById("feature-title").textContent = e.features[0].properties.libelle_site;
+    await populateSidebar(e.features[0].properties);
   });
 
   map.on('mouseenter', 'sites-points', () => {
@@ -132,4 +130,14 @@ function makeDesc(properties)
   `<p>Code site : ${properties.code_site}</p>`;
 
   return desc;
+}
+
+async function populateSidebar(data_site)
+{
+
+    const data_obs = sites.getObservationsData(data_site.code_site);
+
+  document.getElementById("site-panel").classList.add("show");
+  document.getElementById("site-title").textContent = data_site.libelle_site;
+  document.getElementById("site-subtitle").innerHTML = `Mis à jour il y a : <br>Code site : ${data_site.code_site}`;
 }
