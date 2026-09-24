@@ -134,10 +134,16 @@ function makeDesc(properties)
 
 async function populateSidebar(data_site)
 {
-
-    const data_obs = sites.getObservationsData(data_site.code_site);
-
   document.getElementById("site-panel").classList.add("show");
   document.getElementById("site-title").textContent = data_site.libelle_site;
-  document.getElementById("site-subtitle").innerHTML = `Mis à jour il y a : <br>Code site : ${data_site.code_site}`;
+
+  try {
+    const data_obs = await sites.getObservationsData(data_site.code_site);
+    document.getElementById("site-subtitle").innerHTML = `Date derniere donnée : ${data_obs.date_obs} <br>Code site : ${data_site.code_site}`;
+  }
+  catch
+  {
+
+    document.getElementById("site-subtitle").innerHTML = `Erreur de la récupération des données <br>Code site : ${data_site.code_site}`;
+  }
 }
