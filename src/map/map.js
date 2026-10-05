@@ -15,50 +15,12 @@ map.on('load', async () => {
   map.addSource('sites', {
     type: 'geojson',
     data: [],
-    cluster: true,
-    clusterRadius: 30
+    cluster: false
   });
-
-  map.addLayer({
-    id: 'sites-clusters',
-    type: 'circle',
-    source: 'sites',
-    filter: ["has", "point_count"],
-    paint: {
-      "circle-radius": [
-        "step",
-        ["get", "point_count"],
-        16,
-        50,
-        20,
-        200,
-        25
-      ],
-      "circle-color": "#0051d3"
-    }
-  });
-
-  map.addLayer({
-    id: "sites-cluster-count",
-    type: "symbol",
-    source: "sites",
-    filter: ["has", "point_count"],
-
-    layout: {
-      "text-field": ["get", "point_count_abbreviated"],
-      "text-size": 12
-    },
-    paint: {
-      "text-color": "#e5e5e5"
-    }
-  });
-
   map.addLayer({
     id: "sites-points",
     type: "circle",
     source: "sites",
-
-    filter: ["!", ["has", "point_count"]],
 
     paint: {
       "circle-color": "#1177EC",
