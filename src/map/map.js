@@ -1,7 +1,11 @@
-import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.4.1/dist/maplibre-gl.mjs';
-import * as sites from '/src/map/sites.js'
+import { Map, setWorkerUrl, Popup } from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
-export const map = new maplibregl.Map({
+setWorkerUrl(workerUrl);
+
+import { getObservationsData, loadSites } from '/src/map/sites.js'
+
+export const map = new Map({
   container: 'map', // ID conteneur
   style: 'https://tiles.openfreemap.org/styles/positron',
   center: [2.2, 47], // France
@@ -37,7 +41,7 @@ map.on('load', async () => {
       zoom: 10
     });
 
-    new maplibregl.Popup()
+    new Popup()
       .setLngLat(coordinates)
       .setHTML(makeDesc(e.features[0].properties))
       .addTo(map);
@@ -54,7 +58,7 @@ map.on('load', async () => {
     map.getCanvas().style.cursor = '';
   });
 
-  await sites.loadSites(map);
+  await loadSites(map);
 });
 
 
@@ -100,7 +104,7 @@ async function populateSidebar(data_site)
   document.getElementById("site-title").textContent = data_site.libelle_site;
 
   try {
-    const data_obs = await sites.getObservationsData(data_site.code_site);
+    const data_obs = await getObservationsData(data_site.code_site);
     document.getElementById("site-subtitle").innerHTML = `Date derniere donnée : ${data_obs.date_obs} <br>Code site : ${data_site.code_site}`;
   }
   catch

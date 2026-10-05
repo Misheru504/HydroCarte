@@ -1,5 +1,3 @@
-import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.4.1/dist/maplibre-gl.mjs';
-
 export async function loadSites(map) {
   console.log("Chargement des sites")
 
