@@ -10,11 +10,13 @@
     "create-data": "python3 scripts/sites_traitement.py"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.9",
     "vite": "^8.2.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "maplibre-gl": "^6.4.1"
+    "maplibre-gl": "^6.4.1",
+    "vue": "^3.5.43"
   }
 }

@@ -3,7 +3,8 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 
 setWorkerUrl(workerUrl);
 
-import { getObservationsData, loadSites } from '/src/map/sites.js'
+import { loadSites } from '/src/api/sites'
+import { getObservationsData } from '/src/api/hubeau'
 
 export const map = new Map({
   container: 'map', // ID conteneur
