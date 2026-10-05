@@ -1,7 +1,7 @@
 export async function loadSites(map) {
   console.log("Chargement des sites")
 
-  const response = await fetch("/src/assets/sites.json");
+  const response = await fetch(import.meta.env.BASE_URL + "data/sites.geojson");
 
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
 

@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Data
-src/assets/sites.json
+public/data/sites.geojson
