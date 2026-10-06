@@ -19,7 +19,7 @@ export function useSelectedSite()
 
         try
         {
-            const obs = await getObservationsData(newSite.code_site);
+            const obs = await getObservationsData(newSite.code_site, 'H');
             if (id === requestId) observation.value = obs;
         }
         catch(e)

@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import MeasureCard from '/src/components/MeasureCard.vue';
 import { useSelectedSite } from '/src/composables/useSelectedSite';
 
 const { site, observation, loading, error, clearSite } = useSelectedSite()
@@ -142,6 +143,9 @@ const siteUrl = computed(() => `https://www.hydro.eaufrance.fr/sitehydro/${site.
       </header>
       <p v-if="loading" class="meta">Chargement des mesures…</p>
       <p v-else-if="error" class="meta" role="alert">Impossible de charger les mesures.</p>
+      <div v-if="observation">
+        <MeasureCard/>
+      </div>
     </aside>
   </div>
 </template>
