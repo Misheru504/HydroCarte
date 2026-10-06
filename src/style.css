@@ -11,3 +11,20 @@ html, body, #app {
   width: 100%;
   height: 100%;
 }
+
+.icon-badge {
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bs-border-radius);
+  background: var(--bs-primary-bg-subtle);
+  color: var(--bs-primary);
+  font-size: 1.25rem;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

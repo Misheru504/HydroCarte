@@ -3,17 +3,18 @@ import { computed } from 'vue';
 import MeasureCard from '/src/components/MeasureCard.vue';
 import { useSelectedSite } from '/src/composables/useSelectedSite';
 
-const { site, observation, loading, error, clearSite } = useSelectedSite()
+const { site, observation, loading, error, clearSite } = useSelectedSite();
 
 const siteUrl = computed(() => `https://www.hydro.eaufrance.fr/sitehydro/${site.value?.code_site}/fiche`);
 </script>
 <style scoped>
+/* Panneau flottant au-dessus de la carte */
 .sidebarRoot
 {
   position: absolute;
-  top:10px;
-  left:10px;
-  bottom:10px;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
   z-index: 1000;
   max-width: 100%;
 }
@@ -21,56 +22,6 @@ const siteUrl = computed(() => `https://www.hydro.eaufrance.fr/sitehydro/${site.
 .sidebar
 {
   width: 400px;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: #FFFFFF;
-  border-right: 1px solid #DCE6F2;
-  box-shadow: 24px rgba(13, 39, 71, 0.12);
-  overflow-y: auto;
-  color: #0C2340;
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  margin-left: 0px;
-  margin-right: auto;
-  border-radius: 10px;
-}
-
-.sidebarHead
-{
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-bottom: 4px;
-}
-
-.titleRow
-{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.titleBadge
-{
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #E3EEFB;
-  color: #174C99;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.titleBadge i 
-{
-  font-size: 14px;
 }
 
 .closeButton
@@ -78,74 +29,33 @@ const siteUrl = computed(() => `https://www.hydro.eaufrance.fr/sitehydro/${site.
   width: 44px;
   height: 44px;
   margin-right: -8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  color: #4F6480;
-  cursor: pointer;
-}
-
-.closeButton i
-{
-  font-size: 32px;
-}
-
-.nomSite
-{
-  margin: 0;
-  font-size: 26px;
-  line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-
-.descSite
-{
-  margin:0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  color: #4F6480;
-}
-
-.codeSiteLink
-{
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: #1D5FBF;
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 </style>
 
 <template>
   <div v-if="site" class="sidebarRoot">
-    <aside class="sidebar">
-      <header class="sidebarHead">
-        <div class="titleRow">
-          <div class="titleBadge">
+    <aside class="sidebar h-100 p-4 d-flex flex-column gap-3 bg-body border rounded-3 shadow overflow-y-auto">
+      <header class="d-flex flex-column gap-2">
+        <div class="d-flex align-items-center justify-content-between gap-3">
+          <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis d-inline-flex align-items-center gap-1">
             <i class="bi bi-droplet" aria-hidden="true"></i>
             Site hydrométrique
-          </div>
-          <button class="closeButton" @click="clearSite">
+          </span>
+          <button class="closeButton btn border-0 p-0 fs-2 text-body-secondary d-flex align-items-center justify-content-center" aria-label="Fermer" @click="clearSite">
             <i class="bi bi-x" aria-hidden="true"></i>
           </button>
         </div>
-        <h2 class="nomSite">{{ site.libelle_site }}</h2>
-        <p class="descSite">Site <a :href="siteUrl" target="_blank" class="codeSiteLink">{{ site.code_site }} <i class="bi bi-box-arrow-up-right"></i></a></p> <!-- TODO: LIEN CODE SITE -->
+        <h2 class="fs-4 fw-bold lh-sm mb-0">{{ site.libelle_site }}</h2>
+        <p class="small text-body-secondary mb-0 d-flex align-items-center gap-1">
+          Site
+          <a :href="siteUrl" target="_blank" rel="noopener" class="font-monospace fw-medium link-offset-1 d-inline-flex align-items-center gap-1">
+            {{ site.code_site }} <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </p>
       </header>
-      <p v-if="loading" class="meta">Chargement des mesures…</p>
-      <p v-else-if="error" class="meta" role="alert">Impossible de charger les mesures.</p>
-      <div v-if="observation">
-        <MeasureCard/>
-      </div>
+      <p v-if="loading" class="text-body-secondary mb-0">Chargement des mesures…</p>
+      <p v-else-if="error" class="text-body-secondary mb-0" role="alert">Impossible de charger les mesures.</p>
+      <MeasureCard v-if="observation" />
     </aside>
   </div>
 </template>

@@ -1,7 +1,8 @@
-import '/src/style.css';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import '/src/theme.css';
+import '/src/style.css';
 import { setWorkerUrl } from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import { createApp } from 'vue'
