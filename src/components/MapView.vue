@@ -8,9 +8,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useSelectedSite } from '/src/composables/useSelectedSite';
 
 const { site, selectSite } = useSelectedSite();
-const emit = defineEmits(['site-click'])
 let map = null;
-const selectedSite = ref(null);
 
 onMounted(async () => {
     map = new Map({
