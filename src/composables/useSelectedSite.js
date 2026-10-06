@@ -38,7 +38,7 @@ export function useSelectedSite()
         site.value = null;
         observation.value = null;
         loading.value = false;
-        error.value = false;
+        error.value = null;
     }
 
     return {
