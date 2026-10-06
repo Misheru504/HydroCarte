@@ -1,8 +1,11 @@
 import '/src/style.css';
-import '/node_modules/maplibre-gl/dist/maplibre-gl.css';
-import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '/node_modules/bootstrap-icons/font/bootstrap-icons.min.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import { setWorkerUrl } from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+import { createApp } from 'vue'
+import App from '/src/App.vue'
 
-const feature_close_button = document.getElementById("close-panel");
-
-feature_close_button.addEventListener("click", (event) => { document.getElementById("site-panel").classList.remove("show"); })
+setWorkerUrl(workerUrl);
+createApp(App).mount('#app')
